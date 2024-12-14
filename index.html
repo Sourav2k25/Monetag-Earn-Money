@@ -16,34 +16,51 @@
       data-sdk="show_8633661"
     ></script>
      <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+      <script>
+        // Arrays to define parts of a User-Agent string
+        const androidVersions = ["8.0", "8.1", "9", "10", "11", "12", "13"];
+        const deviceModels = ["SM-G991B", "Pixel 6", "Mi 9T", "OnePlus 9", "Galaxy Note10", "Nexus 5X", "Moto G7"];
+        const chromeVersions = [
+            "92.0.4515.131",
+            "94.0.4606.71",
+            "96.0.4664.110",
+            "97.0.4692.98",
+            "100.0.4896.127"
+        ];
+
+        // Function to generate a random User-Agent
+        function generateRandomUserAgent() {
+            const androidVersion = androidVersions[Math.floor(Math.random() * androidVersions.length)];
+            const deviceModel = deviceModels[Math.floor(Math.random() * deviceModels.length)];
+            const chromeVersion = chromeVersions[Math.floor(Math.random() * chromeVersions.length)];
+
+            return `Mozilla/5.0 (Linux; Android ${androidVersion}; ${deviceModel}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVersion} Mobile Safari/537.36`;
+        }
+
+        // Function triggered when the button is clicked
+        function onEarnButtonClick() {
+            // Generate a random User-Agent
+            const randomUserAgent = generateRandomUserAgent();
+
+            // Example: Send a request with the random User-Agent
+            fetch("/earn-monetag", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "User-Agent": randomUserAgent // Set the User-Agent header
+                },
+                body: JSON.stringify({ action: "earn" })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the User-Agent sent and the server's response
+                alert(`Request sent with User-Agent:\n${randomUserAgent}\n\nServer Response:\n${JSON.stringify(data)}`);
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
   </head>
   <body>
-    <h1>Random Android User Agent Generator</h1>
-    <button onclick="generateUserAgent()">Generate User Agent</button>
-    <p id="userAgentDisplay" style="margin-top: 20px; font-weight: bold;"></p>
-
-    <script>
-        // Dynamic Android User Agent Generator Function
-        function getRandomVersion(versions) {
-            return versions[Math.floor(Math.random() * versions.length)];
-        }
-
-        function generateUserAgent() {
-            // Random data for user agents
-            const androidVersions = ["6.0", "7.1.1", "8.0", "9", "10", "11", "12", "13"];
-            const devices = [
-                "Pixel 4", "Pixel 5", "Samsung Galaxy S21", "Redmi Note 9", 
-                "Nexus 6P", "OnePlus 8", "Galaxy Tab S6", "Moto G5"
-            ];
-            const browsers = ["Chrome/91.0.4472.120", "Chrome/89.0.4389.90", "Chrome/103.0.5060.71"];
-            const webkitVersion = "537.36";
-
-            // Construct a random Android user agent
-            const userAgent = `Mozilla/5.0 (Linux; Android ${getRandomVersion(androidVersions)}; ${devices[Math.floor(Math.random() * devices.length)]}) AppleWebKit/${webkitVersion} (KHTML, like Gecko) ${browsers[Math.floor(Math.random() * browsers.length)]} Mobile Safari/${webkitVersion}`;
-
-            // Display the generated user agent
-            document.getElementById("userAgentDisplay").textContent = userAgent;
-        }
     </script>
     <div class="loading-spinner" id="loading-spinner">
       <div class="spinner-border text-primary" role="status">
@@ -235,7 +252,7 @@
                       aria-valuemin="0"
                       aria-valuemax="100"
                     >
-                      60% Completed
+                      0% Completed
                     </div>
                   </div>
                 </div>
@@ -630,6 +647,7 @@
     
     
 });
+
 
 </script> 
 

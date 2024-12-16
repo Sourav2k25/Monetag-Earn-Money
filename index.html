@@ -16,49 +16,6 @@
       data-sdk="show_8633661"
     ></script>
      <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-      <script>
-        // Arrays to define parts of a User-Agent string
-        const androidVersions = ["8.0", "8.1", "9", "10", "11", "12", "13"];
-        const deviceModels = ["SM-G991B", "Pixel 6", "Mi 9T", "OnePlus 9", "Galaxy Note10", "Nexus 5X", "Moto G7"];
-        const chromeVersions = [
-            "92.0.4515.131",
-            "94.0.4606.71",
-            "96.0.4664.110",
-            "97.0.4692.98",
-            "100.0.4896.127"
-        ];
-
-        // Function to generate a random User-Agent
-        function generateRandomUserAgent() {
-            const androidVersion = androidVersions[Math.floor(Math.random() * androidVersions.length)];
-            const deviceModel = deviceModels[Math.floor(Math.random() * deviceModels.length)];
-            const chromeVersion = chromeVersions[Math.floor(Math.random() * chromeVersions.length)];
-
-            return `Mozilla/5.0 (Linux; Android ${androidVersion}; ${deviceModel}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVersion} Mobile Safari/537.36`;
-        }
-
-        // Function triggered when the button is clicked
-        function onEarnButtonClick() {
-            // Generate a random User-Agent
-            const randomUserAgent = generateRandomUserAgent();
-
-            // Example: Send a request with the random User-Agent
-            fetch("/earn-monetag", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "User-Agent": randomUserAgent // Set the User-Agent header
-                },
-                body: JSON.stringify({ action: "earn" })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Display the User-Agent sent and the server's response
-                alert(`Request sent with User-Agent:\n${randomUserAgent}\n\nServer Response:\n${JSON.stringify(data)}`);
-            })
-            .catch(error => console.error("Error:", error));
-        }
-    </script>
   </head>
   <body>
     </script>
